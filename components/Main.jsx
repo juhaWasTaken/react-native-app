@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import {  Text, View, FlatList, ActivityIndicator } from "react-native";
+import { FlatList, ActivityIndicator, Pressable } from "react-native";
 import { getLatestGames } from "../lib/metacritic";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AnimatedGameCard } from "./GameCard";
-import { Logo } from "./Logo";
+import Screen from "./Screen";
 
 export function Main() {
     const [games, setGames] = useState([])
@@ -14,11 +14,10 @@ export function Main() {
             setGames(games)
         })
     }, [])
+
+
     return (
-        <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
-            <View style={{marginBottom: 20}}>
-                <Logo />
-            </View>
+        <Screen>
             {games.length === 0 ? (
                 <ActivityIndicator size="large" color="#fff" />
             ) : (
@@ -28,7 +27,7 @@ export function Main() {
                     renderItem={({ item, index }) => <AnimatedGameCard game={item} index={index} />}
                 />
             )}
-        </View>
+        </Screen>
     );
 }
 
